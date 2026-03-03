@@ -1,0 +1,311 @@
+{
+  "name": "Form to Multi-Channel Notifications",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "multi-channel-form",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -672,
+        -16
+      ],
+      "id": "180d0665-2507-47c5-8772-b7cb1c98f4b5",
+      "name": "Webhook",
+      "webhookId": "ed709eb1-4b6f-48b1-add9-60604f6199d6"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "0574cfe7-ad5c-40a9-abf9-67d29c7d0e92",
+              "name": "name",
+              "value": "={{ $json.body.name }}",
+              "type": "string"
+            },
+            {
+              "id": "fbaaba97-7b26-4488-bf5f-089a85c53ea7",
+              "name": "email",
+              "value": "={{ $json.body.email }}",
+              "type": "string"
+            },
+            {
+              "id": "d211ab25-9786-4db6-abf7-c14a6a5378ae",
+              "name": "phone",
+              "value": "={{ $json.body.phone }}",
+              "type": "string"
+            },
+            {
+              "id": "59d2dfd9-827d-487a-914c-8c8ce0dd8b46",
+              "name": "company",
+              "value": "={{ $json.body.company }}",
+              "type": "string"
+            },
+            {
+              "id": "94cae58e-b711-4f57-8638-c34dc2aee7e4",
+              "name": "service",
+              "value": "={{ $json.body.service }}",
+              "type": "string"
+            },
+            {
+              "id": "8788f71a-3f7b-46dd-9a69-f7f3832b0596",
+              "name": "timestamp",
+              "value": "={{ $now }}",
+              "type": "string"
+            },
+            {
+              "id": "692e832d-dc7b-4aec-b442-b6282d2e253c",
+              "name": "source",
+              "value": "web",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -464,
+        -16
+      ],
+      "id": "0b8503a8-f009-4cf4-9f5c-74049ad07496",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "chatId": "5094673062",
+        "text": "= *New Form Submission!*\n\n *Name:* {{ $json.name }}\n *Email:* {{ $json.email }}\n *Phone:* {{ $json.phone }}\n *Company:* {{ $json.company }}\n *Time:* {{ $json.timestamp }}\n\n _Respond within 5 minutes!_\n",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        -48,
+        0
+      ],
+      "id": "571bf6b0-14b8-41bf-a297-c8fb5a1cd2f6",
+      "name": "Send a text message",
+      "webhookId": "b1cba9d2-2517-46a1-94cb-a13c74df98f6",
+      "credentials": {
+        "telegramApi": {
+          "id": "XXdbgZD9DXkoBash",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "s23500515@gmail.com",
+        "subject": "=New Lead: {{ $json.name }}",
+        "message": "=<!DOCTYPE html> <html> <body style=\"font-family: Arial; padding: 20px;\">   <h2 style=\"color: #0066cc;\">🔔 New Form Submission</h2>   <table style=\"border-collapse: collapse; width: 100%;\">     <tr style=\"border-bottom: 1px solid #eee;\">       <td style=\"padding: 8px;\"><b>👤 Name:</b></td>       <td style=\"padding: 8px;\">{{ $json.name }}</td>     </tr>     <tr style=\"border-bottom: 1px solid #eee;\">       <td style=\"padding: 8px;\"><b>📧 Email:</b></td>       <td style=\"padding: 8px;\">{{ $json.email }}</td>     </tr>     <tr style=\"border-bottom: 1px solid #eee;\">       <td style=\"padding: 8px;\"><b>📱 Phone:</b></td>       <td style=\"padding: 8px;\">{{ $json.phone }}</td>     </tr>     <tr style=\"border-bottom: 1px solid #eee;\">       <td style=\"padding: 8px;\"><b>🏢 Company:</b></td>       <td style=\"padding: 8px;\">{{ $json.company }}</td>     </tr>     <tr>       <td style=\"padding: 8px;\"><b>🕒 Time:</b></td>       <td style=\"padding: 8px;\">{{ $json.timestamp }}</td>     </tr>   </table>   <p style=\"color: #e74c3c; margin-top: 20px;\">     ⚡ Respond within 5 minutes for best results!   </p> </body> </html>",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        -32,
+        -144
+      ],
+      "id": "7baf4f32-a22d-4a3d-a013-b0d6d13c6dbf",
+      "name": "Send a message",
+      "webhookId": "aa7a4bc5-b8a4-4bab-9ded-8f7fb680ebb9",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "seI0s3PUJIChmE64",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1mOwEV8drS_-ZsUEjZapirsTBaykyCaozgys765RSQac",
+          "mode": "list",
+          "cachedResultName": "Form to Multi-Channel Notifications",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1mOwEV8drS_-ZsUEjZapirsTBaykyCaozgys765RSQac/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1mOwEV8drS_-ZsUEjZapirsTBaykyCaozgys765RSQac/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Name": "{{ $json.name }}",
+            "Email": "{{ $json.email }}",
+            "Phone": "{{ $json.phone }}",
+            "Company": "{{ $json.company }}",
+            "Service": "{{ $json.service }}",
+            "Timestamp": "{{ $json.timestamp }}",
+            "Source": "{{ $json.source }}",
+            "Status": "New"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Phone",
+              "displayName": "Phone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Company",
+              "displayName": "Company",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Service",
+              "displayName": "Service",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Timestamp",
+              "displayName": "Timestamp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Source",
+              "displayName": "Source",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -48,
+        144
+      ],
+      "id": "ef7747a0-a626-4dc3-873c-f26e27928574",
+      "name": "Append or update row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "85pS7IoyCOzCS8Ft",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Append or update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a message": {
+      "main": [
+        []
+      ]
+    },
+    "Send a text message": {
+      "main": [
+        []
+      ]
+    },
+    "Append or update row in sheet": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "d6e6b2a6-77a5-43c3-a9fa-82fee2a7ee85",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "2286a3a7b7442a1d6f5422639cf5aca3080cf9117a4f394ec938fe8a5f15ccfe"
+  },
+  "id": "fOEVF9dLvIwxEbnU",
+  "tags": []
+}
